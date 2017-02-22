@@ -9,37 +9,32 @@ import service.EntityClass.Admin;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Action;
-import java.net.*;
 import org.json.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class AdminAction extends ActionSupport implements ModelDriven {
     Admin admin = new Admin();
+    JSONArray station,show;
     
-    JSONArray station;
+    public Object getModel() {
+        return admin;
+    }
     public String execute() throws Exception {
         String text = "";
-        //URL url;
-        /*try{
-        //http://localhost:8080/HerbServices/webresources/service.entityclass.admin 
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }catch(IOException e){
-            e.printStackTrace();
-        }*/
-        
-        JSONObject obj = new JSONObject(text);
+        JSONObject obj = new JSONObject();
+        JSONArray list = new JSONArray();
         station = obj.getJSONArray("usernameAd");
         
         for(int i = 0; i < station.length(); i++){
             JSONObject jsonObject = station.getJSONObject(i);
-            
-        }
+            show = jsonObject.getJSONArray(admin.getUsernameAd());
+            obj.putOnce(admin.getUsernameAd(), admin.getPasswordAd());
+        
         return SUCCESS;
     }
-    public Object getModel() {
-        return admin;
-    }
-}
+        return null;
+}}
     /*private String[] stringarray;
     private int[] numberarray;
     private List<String> lists = new ArrayList<String>();*/

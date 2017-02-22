@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  *
@@ -31,7 +32,16 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Herb", catalog = "SocialHerb_db", schema = "dbo")
-@XmlRootElement
+
+@JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+            property = "type"
+    )
+
+//</editor-fold>
+//@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "Herb.findAll", query = "SELECT h FROM Herb h")
     , @NamedQuery(name = "Herb.findByHerbID", query = "SELECT h FROM Herb h WHERE h.herbID = :herbID")

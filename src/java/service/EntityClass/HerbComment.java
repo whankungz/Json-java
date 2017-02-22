@@ -27,7 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "HerbComment", catalog = "SocialHerb_db", schema = "dbo")
-@XmlRootElement
+@JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+            property = "type"
+    )
+
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HerbComment.findAll", query = "SELECT h FROM HerbComment h")
     , @NamedQuery(name = "HerbComment.findByHerbCommentID", query = "SELECT h FROM HerbComment h WHERE h.herbCommentID = :herbCommentID")

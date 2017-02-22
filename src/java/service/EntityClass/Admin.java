@@ -5,6 +5,7 @@
  */
 package service.EntityClass;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.persistence.Column;
@@ -16,20 +17,43 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.apache.struts2.json.annotations.JSON;
+import java.io.InputStream;
+import java.net.URL;
+import net.sf.json.JSONObject;
+
+import net.sf.json.xml.XMLSerializer;
+import org.apache.commons.io.IOUtils;
+
+
 
 /**
  *
  * @author iamGG
  */
+
 @Entity
 @Table(name = "Admin", catalog = "SocialHerb_db", schema = "dbo")
-@XmlRootElement
+@JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+            property = "type"
+    )
+
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a")
     , @NamedQuery(name = "Admin.findByUsernameAd", query = "SELECT a FROM Admin a WHERE a.usernameAd = :usernameAd")
     , @NamedQuery(name = "Admin.findByPasswordAd", query = "SELECT a FROM Admin a WHERE a.passwordAd = :passwordAd")})
-public class Admin implements Serializable {
 
+
+
+
+
+ 
+public class Admin implements Serializable {
+    
+ 
     private static final long serialVersionUID = 1L;
     //@Id
     @Basic(optional = false)
@@ -44,7 +68,9 @@ public class Admin implements Serializable {
     @Column(name = "passwordAd")
     private String passwordAd;
 
+   
     public Admin() {
+        
     }
 
     public Admin(String usernameAd) {
@@ -96,5 +122,49 @@ public class Admin implements Serializable {
     public String toString() {
         return "service.EntityClass.Admin[ usernameAd=" + usernameAd + " ]";
     }
+   
+       
+//         public static int PRETTY_PRINT_INDENT_FACTOR = 4;
+//    public static String  URL =
+//        "http://localhost:8080/HerbServices/webresources/service.entityclass.admin";
+//
+//    public static void main(String[] args) {
+//        
+//        try {
+//            JSONObject xmlJSONObj = XML.toJSONObject(URL);
+//            String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
+//            System.out.println(xmlJSONObj);
+//        } catch (JSONException je) {
+//            System.out.println(je.toString());
+//        }
+//    }
     
-}
+//  public static void main(String[] args) {
+//URL url = null;
+// InputStream inputStream = null;   
+// 
+//        try {
+//           url = Admin.class.getClassLoader().getResource("http://localhost:8080/HerbServices/webresources/service.entityclass.admin");
+//            inputStream = url.openStream();
+//            String xml = IOUtils.toString(inputStream);
+//            JSONObject objJson = XMLSerializer.readObject(xml);
+//            System.out.println("JSON data : " + objJson);
+//      } catch (IOException e) {
+//        }finally{
+//     try {
+//                if (inputStream != null) {
+//                    inputStream.close();
+//                }
+//                url = null;
+//            } catch (IOException ex) {}
+//        }
+//        
+//        
+//               new Admin();
+//        
+//    }             
+      
+    }
+
+   
+       

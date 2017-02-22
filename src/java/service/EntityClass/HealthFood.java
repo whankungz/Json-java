@@ -26,8 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author iamGG
  */
 @Entity
-@Table(name = "HealthFood", catalog = "SocialHerb_db", schema = "dbo")
-@XmlRootElement
+@Table(name = "HealthFood", catalog = "SocialHerb__db", schema = "dbo")
+@JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+            property = "type"
+    )
+
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HealthFood.findAll", query = "SELECT h FROM HealthFood h")
     , @NamedQuery(name = "HealthFood.findByFoodID", query = "SELECT h FROM HealthFood h WHERE h.foodID = :foodID")

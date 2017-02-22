@@ -31,7 +31,13 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Disease", catalog = "SocialHerb_db", schema = "dbo")
-@XmlRootElement
+@JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+            property = "type"
+    )
+
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Disease.findAll", query = "SELECT d FROM Disease d")
     , @NamedQuery(name = "Disease.findByDiseaseID", query = "SELECT d FROM Disease d WHERE d.diseaseID = :diseaseID")
